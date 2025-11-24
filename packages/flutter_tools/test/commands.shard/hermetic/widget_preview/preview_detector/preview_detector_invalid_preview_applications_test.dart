@@ -19,12 +19,17 @@ import '../utils/preview_project.dart';
 // flaky failures.
 
 /// Creates a project with files containing invalid preview applications.
+<<<<<<< HEAD
 class BasicProjectWithInvalidPreviews extends WidgetPreviewProject {
+=======
+class BasicProjectWithInvalidPreviews extends WidgetPreviewProject with ProjectWithPreviews {
+>>>>>>> 19074d12f7eaf6a8180cd4036a430c1d76de904e
   BasicProjectWithInvalidPreviews._({
     required super.projectRoot,
     required List<String> pathsWithPreviews,
     required List<String> pathsWithoutPreviews,
   }) {
+<<<<<<< HEAD
     final initialSources = <WidgetPreviewSourceFile>[];
     for (final path in pathsWithPreviews) {
       initialSources.add((path: path, source: _invalidPreviewContainingFileContents));
@@ -35,6 +40,9 @@ class BasicProjectWithInvalidPreviews extends WidgetPreviewProject {
       librariesWithoutPreviews.add(toPreviewPath(path));
     }
     initialSources.forEach(writeFile);
+=======
+    initialize(pathsWithPreviews: pathsWithPreviews, pathsWithoutPreviews: pathsWithoutPreviews);
+>>>>>>> 19074d12f7eaf6a8180cd4036a430c1d76de904e
   }
 
   static Future<BasicProjectWithInvalidPreviews> create({
@@ -51,6 +59,7 @@ class BasicProjectWithInvalidPreviews extends WidgetPreviewProject {
     return project;
   }
 
+<<<<<<< HEAD
   final librariesWithPreviews = <PreviewPath>{};
   final librariesWithoutPreviews = <PreviewPath>{};
 
@@ -72,6 +81,15 @@ void main() {}
 ''';
 
   static const _invalidPreviewContainingFileContents = '''
+=======
+  @override
+  final nonPreviewContainingFileContents = '''
+void main() {}
+''';
+
+  @override
+  final previewContainingFileContents = '''
+>>>>>>> 19074d12f7eaf6a8180cd4036a430c1d76de904e
 
 
 @Preview(name: 'Invalid preview on class declaration')
@@ -106,6 +124,12 @@ Widget foo(int bar) => Text('Foo');
 @Preview(name: 'Invalid preview on extension')
 extension on ClassDeclaration {}
 ''';
+<<<<<<< HEAD
+=======
+
+  @override
+  List<PreviewDetailsMatcher> get expectedPreviewDetails => [];
+>>>>>>> 19074d12f7eaf6a8180cd4036a430c1d76de904e
 }
 
 void main() {

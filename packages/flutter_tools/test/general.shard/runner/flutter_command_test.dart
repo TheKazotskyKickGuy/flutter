@@ -9,6 +9,7 @@ import 'package:args/command_runner.dart';
 import 'package:file/memory.dart';
 import 'package:flutter_tools/src/base/common.dart';
 import 'package:flutter_tools/src/base/error_handling_io.dart';
+import 'package:flutter_tools/src/base/exit.dart';
 import 'package:flutter_tools/src/base/file_system.dart';
 import 'package:flutter_tools/src/base/io.dart';
 import 'package:flutter_tools/src/base/logger.dart';
@@ -726,6 +727,7 @@ void main() {
       },
     );
 
+<<<<<<< HEAD
     testUsingContext(
       'dds options --disable-dds works, but is deprecated',
       () async {
@@ -775,6 +777,8 @@ void main() {
       },
     );
 
+=======
+>>>>>>> 19074d12f7eaf6a8180cd4036a430c1d76de904e
     group('findTargetDevice', () {
       final device1 = FakeDevice('device1', 'device1');
       final device2 = FakeDevice('device2', 'device2');
@@ -1593,8 +1597,7 @@ Use the "flutter config" command to enable feature flags.''',
             final fileSystem = MemoryFileSystem.test();
             fileSystem
               ..file('lib/main.dart').createSync(recursive: true)
-              ..file('pubspec.yaml').createSync()
-              ..file('.packages').createSync();
+              ..file('pubspec.yaml').createSync();
             fileSystem.file('config.json')
               ..createSync()
               ..writeAsStringSync('{"FLUTTER_ENABLED_FEATURE_FLAGS": "AlreadySet"}');
