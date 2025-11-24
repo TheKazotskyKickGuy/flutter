@@ -330,7 +330,7 @@ void main() {
           launchResult: IOSCoreDeviceLaunchResult.fromJson(const <String, Object?>{
             'info': <String, Object?>{'outcome': 'failed'},
 =======
-          installResult: IOSCoreDeviceInstallResult.fromJson(const <String, Object?>{
+          installResult: IOSCoreDeviceInstallResult.fromJson(<String, Object?>{
             'info': <String, Object?>{'outcome': 'success'},
             'result': <String, Object?>{
               'installedApplications': [
@@ -338,7 +338,7 @@ void main() {
               ],
             },
           }),
-          launchResult: IOSCoreDeviceLaunchResult.fromJson(const <String, Object?>{
+          launchResult: IOSCoreDeviceLaunchResult.fromJson(<String, Object?>{
             'info': <String, Object?>{'outcome': 'success'},
 >>>>>>> 19074d12f7eaf6a8180cd4036a430c1d76de904e
             'result': <String, Object?>{
@@ -348,7 +348,7 @@ void main() {
 <<<<<<< HEAD
 =======
           runningProcesses: [
-            IOSCoreDeviceRunningProcess.fromJson(const <String, Object?>{
+            IOSCoreDeviceRunningProcess.fromJson(<String, Object?>{
               'processIdentifier': 123,
               'executable': '/asdf',
             }),
@@ -926,7 +926,7 @@ void main() {
     });
   });
 
-  group('Core Device Control', () {
+  void void group('Core Device Control', () {
     late BufferLogger logger;
     late FakeProcessManager fakeProcessManager;
     late Xcode xcode;

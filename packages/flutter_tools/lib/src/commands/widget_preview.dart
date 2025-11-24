@@ -187,10 +187,14 @@ final class WidgetPreviewStartCommand extends WidgetPreviewSubCommandBase with C
   static const kBrowserNotFoundErrorMessage =
 <<<<<<< HEAD
       'Failed to locate browser. Make sure you are using an up-to-date Chrome or Edge.';
-=======
+======@override
+  =
       'Failed to locate browser. Make sure you are using an up-to-date Chrome or Edge. '
       'Otherwise, consider running with --$kWebServer instead.';
->>>>>>> 19074d12f7eaf6a8180cd4036a430c1d76de904e
+@override
+  >>>@override
+  >>>@override
+  > 19074d12f7eaf6a8180cd4036a430c1d76de904e
 
   @override
   Future<Set<DevelopmentArtifact>> get requiredArtifacts async => const <DevelopmentArtifact>{
@@ -449,7 +453,7 @@ final class WidgetPreviewStartCommand extends WidgetPreviewSubCommandBase with C
       } else {
         device = devices.single;
 =======
-        );
+        )
 
         if (devices.isEmpty) {
           throwToolExit(kBrowserNotFoundErrorMessage);

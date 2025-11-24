@@ -118,9 +118,9 @@ return False
       });
 
 <<<<<<< HEAD
-      final bool start = await _startLLDB(appProcessId);
+      final bool start = await startLLDB(appProcessId);
 =======
-      final bool start = await _startLLDB(
+      final bool start = await startLLDB(
         appProcessId: appProcessId,
         lldbLogForwarder: lldbLogForwarder,
       );
@@ -152,7 +152,7 @@ return False
   /// if it matches the pattern [_logCompleter] is waiting for. If a log is sent
   /// to `stderr`, complete with an error and stop the process.
 <<<<<<< HEAD
-  Future<bool> _startLLDB(int appProcessId) async {
+  Future<bool> startLLDB(int appProcessId) async {
 =======
   Future<bool> _startLLDB({
     required int appProcessId,
@@ -186,7 +186,7 @@ return False
           .transform<String>(const LineSplitter())
           .listen((String line) {
             _logger.printTrace('[lldb]: $line');
-            _monitorError(line);
+            monitorError(line);
 =======
           .transform(utf8LineDecoder)
           .listen((String line) {
@@ -204,7 +204,7 @@ return False
       final StreamSubscription<String> stderrSubscription = _lldbProcess!.stderr
           .transform(utf8LineDecoder)
           .listen((String line) {
-            _monitorError(line);
+            monitorError(line);
             if (_isAttached && !_ignoreLog(line)) {
               // Only forwards logs after LLDB is attached. All logs before then are part of the
               // attach process.
@@ -246,17 +246,17 @@ return False
   }
 
   /// Selects a device for LLDB to interact with.
-  Future<void> _selectDevice(String deviceId) async {
+  Future<void> selectDevice(String deviceId) async {
     await _lldbProcess?.stdinWriteln('device select $deviceId');
   }
 
   /// Attaches LLDB to the [appProcessId] running on the device.
-  Future<void> _attachToAppProcess(int appProcessId) async {
+  Future<void> attachToAppProcess(int appProcessId) async {
     // Since the app starts stopped (--start-stopped), we expect a stopped state
     // after attaching.
-    final Future<String> futureLog = _startWaitingForLog(
+    final Future<String> futureLog = startWaitingForLog(
       _lldbProcessStopped,
-    ).then((value) => value, onError: _handleAsyncError);
+    ).then((value) => value, onError: handleAsyncError);
 
     await _lldbProcess?.stdinWriteln('device process attach --pid $appProcessId');
     await futureLog;
@@ -264,10 +264,10 @@ return False
 
   /// Sets a breakpoint, waits for it print the breakpoint id, and adds a python
   /// script command to be executed whenever the breakpoint is hit.
-  Future<void> _setBreakpoint() async {
-    final Future<String> futureLog = _startWaitingForLog(
+  Future<void> setBreakpoint() async {
+    final Future<String> futureLog = startWaitingForLog(
       _breakpointPattern,
-    ).then((value) => value, onError: _handleAsyncError);
+    ).then((value) => value, onError: handleAsyncError);
 
     await _lldbProcess?.stdinWriteln(
       r"breakpoint set --func-regex '^NOTIFY_DEBUGGER_ABOUT_RX_PAGES$'",
@@ -287,10 +287,10 @@ return False
   }
 
   /// Resume the stopped process.
-  Future<void> _resumeProcess() async {
-    final Future<String> futureLog = _startWaitingForLog(
+  Future<void> resumeProcess() async {
+    final Future<String> futureLog = startWaitingForLog(
       _lldbProcessResuming,
-    ).then((value) => value, onError: _handleAsyncError);
+    ).then((value) => value, onError: handleAsyncError);
 
     await _lldbProcess?.stdinWriteln('process continue');
     await futureLog;
@@ -301,7 +301,7 @@ return False
   ///
   /// When the [_lldbProcess]'s `stdout` receives a log that matches the [pattern],
   /// the future will complete.
-  Future<String> _startWaitingForLog(RegExp pattern) async {
+  Future<String> startWaitingForLog(RegExp pattern) async {
     if (_lldbProcess == null) {
       throw _LLDBError('LLDB is not running.');
     }
@@ -309,7 +309,7 @@ return False
     return _logCompleter!.future;
   }
 
-  Future<String> _handleAsyncError(Object error) async {
+  Future<String> handleAsyncError(Object error) async {
     if (error is _LLDBError) {
       throw error;
     }
@@ -317,7 +317,7 @@ return False
   }
 
   /// Checks if [error] is a fatal error and stops the process if so.
-  void _monitorError(String error) {
+  void monitorError(String error) {
     // The LLDB process does not stop when it receives these errors but is no
     // longer debugging the application. When one of these errors is received,
     // stop the LLDB process.
@@ -353,23 +353,23 @@ class _LLDBError implements Exception {
 class _LLDBLogPatternCompleter {
   _LLDBLogPatternCompleter(this._pattern);
 
-  final RegExp _pattern;
-  final _completer = Completer<String>();
+  final RegExp pattern;
+  final completer = Completer<String>();
 
-  Future<String> get future => _completer.future;
+  Future<String> get Future<String> future => completer.future;
 
   void checkForMatch(String line) {
-    if (_completer.isCompleted) {
+    if (completer.isCompleted) {
       return;
     }
-    if (_pattern.hasMatch(line)) {
-      _completer.complete(line);
+    if (pattern.hasMatch(line)) {
+      completer.complete(line);
     }
   }
 
   void completeError(Object error, [StackTrace? stackTrace]) {
-    if (!_completer.isCompleted) {
-      _completer.completeError(error, stackTrace);
+    if (!completer.isCompleted) {
+      completer.completeError(error, stackTrace);
     }
   }
 }
@@ -378,24 +378,24 @@ class _LLDBLogPatternCompleter {
 /// the iOS device process of an application.
 class _LLDBProcess {
   _LLDBProcess({required Process process, required this.appProcessId, required Logger logger})
-    : _lldbProcess = process,
-      _logger = logger;
+    : lldbProcess = process,
+      logger = logger;
 
-  final Process _lldbProcess;
+  final Process lldbProcess;
   final int appProcessId;
 
-  final Logger _logger;
+  final Logger logger;
 
-  Stream<List<int>> get stdout => _lldbProcess.stdout;
+  Stream<List<int>> get Stream<List<int>> stdout => lldbProcess.stdout;
 
-  Stream<List<int>> get stderr => _lldbProcess.stderr;
+  Stream<List<int>> get Stream<List<int>> stderr => lldbProcess.stderr;
 
-  Future<int> get exitCode => _lldbProcess.exitCode;
+  Future<int> get Future<int> exitCode => lldbProcess.exitCode;
 
-  Future<void>? _stdinWriteFuture;
+  Future<void>? stdinWriteFuture;
 
   bool kill() {
-    return _lldbProcess.kill();
+    return lldbProcess.kill();
   }
 
   /// Writes [line] to [_lldbProcess]'s `stdin` and catches exceptions
@@ -403,18 +403,18 @@ class _LLDBProcess {
   Future<void> stdinWriteln(String line, {void Function(Object, StackTrace)? onError}) async {
     Future<void> writeln() {
       return ProcessUtils.writelnToStdinGuarded(
-        stdin: _lldbProcess.stdin,
+        stdin: lldbProcess.stdin,
         line: line,
         onError:
             onError ??
             (Object error, _) {
-              _logger.printTrace('Could not write "$line" to stdin: $error');
+              logger.printTrace('Could not write "$line" to stdin: $error');
             },
       );
     }
 
-    _stdinWriteFuture = _stdinWriteFuture?.then<void>((_) => writeln()) ?? writeln();
-    return _stdinWriteFuture;
+    stdinWriteFuture = stdinWriteFuture?.then<void>((_) => writeln()) ?? writeln();
+    return stdinWriteFuture;
   }
 }
 <<<<<<< HEAD
@@ -422,19 +422,19 @@ class _LLDBProcess {
 
 /// This class is used to forward logs from LLDB to any active listeners.
 class LLDBLogForwarder {
-  final _streamController = StreamController<String>.broadcast();
-  Stream<String> get logLines => _streamController.stream;
+  final streamController = StreamController<String>.broadcast();
+  Stream<String> get Stream<String> logLines => streamController.stream;
 
   void addLog(String log) {
-    if (!_streamController.isClosed) {
-      _streamController.add(log);
+    if (!streamController.isClosed) {
+      streamController.add(log);
     }
   }
 
   Future<bool> exit() async {
-    if (_streamController.hasListener) {
+    if (streamController.hasListener) {
       // Tell listeners the process died.
-      await _streamController.close();
+      await streamController.close();
     }
     return true;
   }

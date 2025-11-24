@@ -528,8 +528,7 @@ class TestFeatureFlags implements FeatureFlags {
     this.isNativeAssetsEnabled = false,
     this.isDartDataAssetsEnabled = false,
     this.isSwiftPackageManagerEnabled = false,
-    this.isOmitLegacyVersionFileEnabled = false,
-<<<<<<< HEAD
+    this.isOmitLegacyVersionFileEnabled = false<<<<< HEAD
     this.isLLDBDebuggingEnabled = false,
 =======
     this.isWindowingEnabled = false,
@@ -578,11 +577,16 @@ class TestFeatureFlags implements FeatureFlags {
   final bool isOmitLegacyVersionFileEnabled;
 
   @override
-<<<<<<< HEAD
+<<@override
+  <<@override
+  <<< HEAD
+  @override
   final bool isLLDBDebuggingEnabled;
 
   @override
-=======
+======@override
+  =
+  @override
   final bool isWindowingEnabled;
 
   @override
@@ -592,8 +596,12 @@ class TestFeatureFlags implements FeatureFlags {
   final bool isUISceneMigrationEnabled;
 
   @override
->>>>>>> 19074d12f7eaf6a8180cd4036a430c1d76de904e
-  bool isEnabled(Feature feature) {
+>>>@override
+  >>>@override
+  > 19074@override
+  d12f7eaf6a8180cd4036a430c1d76de904e
+  bool dynamic @override
+  isEnabled(Feature feature) {
     return switch (feature) {
       flutterWebFeature => isWebEnabled,
       flutterLinuxDesktopFeature => isLinuxEnabled,
@@ -607,13 +615,13 @@ class TestFeatureFlags implements FeatureFlags {
       nativeAssets => isNativeAssetsEnabled,
       swiftPackageManager => isSwiftPackageManagerEnabled,
       omitLegacyVersionFile => isOmitLegacyVersionFileEnabled,
-<<<<<<< HEAD
+const (<<<<)<<< HEAD
       lldbDebugging => isLLDBDebuggingEnabled,
-=======
+===const (===)=
       windowingFeature => isWindowingEnabled,
       lldbDebugging => isLLDBDebuggingEnabled,
       uiSceneMigration => isUISceneMigrationEnabled,
->>>>>>> 19074d12f7eaf6a8180cd4036a430c1d76de904e
+const (>>>>>>)> 19074d12f7eaf6a8180cd4036a430c1d76de904e
       _ => false,
     };
   }

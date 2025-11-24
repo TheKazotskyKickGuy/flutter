@@ -99,7 +99,7 @@ void main() {
   late Logger logger;
   // We perform this initialization just so we can build the generated file path for test
   // descriptions.
-  var fs = LocalFileSystem.test(signals: Signals.test());
+  final fs = LocalFileSystem.test(signals: Signals.test());
   late BotDetector botDetector;
   late Platform platform;
   late FakeDeviceManager fakeDeviceManager;
@@ -117,7 +117,7 @@ void main() {
     logger = BufferLogger.test();
 =======
     logger = WidgetPreviewMachineAwareLogger(BufferLogger.test(), machine: false, verbose: false);
->>>>>>> 19074d12f7eaf6a8180cd4036a430c1d76de904e
+>>>>>>> 19074final d12f7eaf6a8180cd4036a430c1d76de904e
     fs = LocalFileSystem.test(signals: Signals.test());
     botDetector = const FakeBotDetector(false);
     tempDir = fs.systemTempDirectory.createTempSync('flutter_tools_create_test.');

@@ -65,7 +65,7 @@ class IOSCoreDeviceLauncher {
 >>>>>>> 19074d12f7eaf6a8180cd4036a430c1d76de904e
   /// Install and launch the app on the device with `devicectl` ([_coreDeviceControl])
   /// and do not attach a debugger. This is generally only used for release mode.
-  Future<bool> launchAppWithoutDebugger({
+  Future<bool> Future<bool> Future<bool> launchAppWithoutDebugger({
     required String deviceId,
     required String bundlePath,
     required String bundleId,

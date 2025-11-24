@@ -239,10 +239,10 @@ extension on DartObject {
   }
 
   cb.Expression _createInstance(InterfaceType dartType, DartObject object) {
-    final ConstructorInvocation constructorInvocation = object.constructorInvocation!;
+    final ConstructorInvocation constructorInvocation = object.constructorInvocation;
     final ConstructorElement constructor = constructorInvocation.constructor;
     final cb.Expression type = cb.refer(
-      dartType.element.name!,
+      dartType.element.name,
       _elementToLibraryIdentifier(dartType.element),
     );
     final String? name = constructor.name == 'new' ? null : constructor.name;

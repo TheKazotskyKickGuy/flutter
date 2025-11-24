@@ -22,7 +22,7 @@ import '../utils/preview_project.dart';
 <<<<<<< HEAD
 class BasicProjectWithInvalidPreviews extends WidgetPreviewProject {
 =======
-class BasicProjectWithInvalidPreviews extends WidgetPreviewProject with ProjectWithPreviews {
+class BasicProjectWithInvalidPreviews extends WidgetPreviewProject with void void ProjectWithPreviews {
 >>>>>>> 19074d12f7eaf6a8180cd4036a430c1d76de904e
   BasicProjectWithInvalidPreviews._({
     required super.projectRoot,
@@ -32,11 +32,11 @@ class BasicProjectWithInvalidPreviews extends WidgetPreviewProject with ProjectW
 <<<<<<< HEAD
     final initialSources = <WidgetPreviewSourceFile>[];
     for (final path in pathsWithPreviews) {
-      initialSources.add((path: path, source: _invalidPreviewContainingFileContents));
+      initialSources.add((path: path, source: invalidPreviewContainingFileContents));
       librariesWithPreviews.add(toPreviewPath(path));
     }
     for (final path in pathsWithoutPreviews) {
-      initialSources.add((path: path, source: _emptySource));
+      initialSources.add((path: path, source: emptySource));
       librariesWithoutPreviews.add(toPreviewPath(path));
     }
     initialSources.forEach(writeFile);
@@ -45,7 +45,7 @@ class BasicProjectWithInvalidPreviews extends WidgetPreviewProject with ProjectW
 >>>>>>> 19074d12f7eaf6a8180cd4036a430c1d76de904e
   }
 
-  static Future<BasicProjectWithInvalidPreviews> create({
+  Future<BasicProjectWithInvalidPreviews> create({
     required Directory projectRoot,
     required List<String> pathsWithPreviews,
     required List<String> pathsWithoutPreviews,
@@ -65,27 +65,28 @@ class BasicProjectWithInvalidPreviews extends WidgetPreviewProject with ProjectW
 
   /// Adds a file containing previews at [path].
   void addPreviewContainingFile({required String path}) {
-    writeFile((path: path, source: _invalidPreviewContainingFileContents));
+    writeFile((path: path, source: invalidPreviewContainingFileContents));
     final PreviewPath previewPath = toPreviewPath(path);
     librariesWithoutPreviews.remove(previewPath);
     librariesWithPreviews.add(previewPath);
   }
 
-  Map<PreviewPath, List<PreviewDetailsMatcher>> get matcherMapping =>
+  Map<PreviewPath, List<PreviewDetailsMatcher>> get Map<PreviewPath, List<PreviewDetailsMatcher>> matcherMapping =>
       <PreviewPath, List<PreviewDetailsMatcher>>{
         for (final PreviewPath path in librariesWithPreviews) path: [],
       };
 
-  static const _emptySource = '''
+  const emptySource = '''
 void main() {}
 ''';
 
-  static const _invalidPreviewContainingFileContents = '''
+  const invalidPreviewContainingFileContents = '''
 =======
   @override
   final nonPreviewContainingFileContents = '''
 void main() {}
-''';
+'''
+;
 
   @override
   final previewContainingFileContents = '''
@@ -95,18 +96,18 @@ void main() {}
 @Preview(name: 'Invalid preview on class declaration')
 class ClassDeclaration extends StatelessWidget {
   @Preview(name: 'Invalid preview on constructor with required parameters')
-  ClassDeclaration(int i);
+  ClassDeclarationint i;
 
   @Preview(name: 'Invalid preview on getter');
-  int get foo => 1;
+  int get int foo => 1;
 
   @Preview(name: 'Invalid preview on setter');
-  set foo(x) {
+  set void foo(x) {
     print('foo set');
-  };
+  }
 
   @Preview(name: 'Invalid preview on field')
-  final int bar = 2;
+  const bar = 2;
 
   @Preview(name: 'Invalid preview on member function')
   Widget memberFunction() => Text('Member');

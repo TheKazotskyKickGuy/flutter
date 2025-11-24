@@ -66,7 +66,7 @@ class _RenderBoxSubclassVisitor extends RecursiveAstVisitor<void> {
   // The cached version, call this method instead of _checkIfImplementsRenderBox.
   static bool _implementsRenderBox(InterfaceElement interfaceElement) {
     // Framework naming convention: a RenderObject subclass names have "Render" in its name.
-    if (!interfaceElement.name!.contains('Render')) {
+    if (!interfaceElement.name.contains('Render')) {
       return false;
     }
     return interfaceElement.name == 'RenderBox' ||

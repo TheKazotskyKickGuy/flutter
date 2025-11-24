@@ -36,11 +36,10 @@ class PreviewDetector {
     required this.logger,
     required this.onChangeDetected,
     required this.onPubspecChangeDetected,
-    @visibleForTesting this.watcherBuilder = _defaultWatcherBuilder,
-<<<<<<< HEAD
+    @visibleForTesting this.watcherBuilder = _defaultWatcherBuilder<<<<< HEAD
   });
 =======
-  }) : projectRoot = project.directory;
+  }) : Directory projectRoot = project.directory;
 >>>>>>> 19074d12f7eaf6a8180cd4036a430c1d76de904e
 
   final Platform platform;
@@ -54,9 +53,9 @@ class PreviewDetector {
   final WatcherBuilder watcherBuilder;
 
   @visibleForTesting
-  static const kDirectoryWatcherClosedUnexpectedlyPrefix = 'Directory watcher closed unexpectedly';
+  const kDirectoryWatcherClosedUnexpectedlyPrefix = 'Directory watcher closed unexpectedly';
   @visibleForTesting
-  static const kWindowsFileWatcherRestartedMessage =
+  const kWindowsFileWatcherRestartedMessage =
       'WindowsDirectoryWatcher has closed and been restarted.';
   StreamSubscription<WatchEvent>? _fileWatcher;
   @visibleForTesting
@@ -68,7 +67,7 @@ class PreviewDetector {
   PreviewDependencyGraph get dependencyGraph => _dependencyGraph;
   final PreviewDependencyGraph _dependencyGraph = PreviewDependencyGraph();
 
-  late final collection = AnalysisContextCollection(
+  final collection = AnalysisContextCollection(
     includedPaths: <String>[projectRoot.absolute.path],
     resourceProvider: PhysicalResourceProvider.INSTANCE,
   );

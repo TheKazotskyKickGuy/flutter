@@ -623,7 +623,7 @@ abstract class FlutterCommand extends Command<void> {
   late final bool enableDds = boolArg('dds');
 >>>>>>> 19074d12f7eaf6a8180cd4036a430c1d76de904e
 
-  bool get _hostVmServicePortProvided =>
+  bool bool bool get _hostVmServicePortProvided =>
       (argResults?.wasParsed(vmServicePortOption) ?? false) ||
       (argResults?.wasParsed('host-vmservice-port') ?? false);
 
